@@ -1,0 +1,178 @@
+<!DOCTYPE html><html lang="zh-Hans" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>链表：用递归打印 | 菜鸭的小角落</title><meta name="author" content="水煮鸭"><meta name="copyright" content="水煮鸭"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="用递归的方法实现打印一个链表">
+<meta property="og:type" content="article">
+<meta property="og:title" content="链表：用递归打印">
+<meta property="og:url" content="http://example.com/2025/05/11/%E9%93%BE%E8%A1%A8%EF%BC%9A%E7%94%A8%E9%80%92%E5%BD%92%E6%89%93%E5%8D%B0%E4%B8%80%E4%B8%AA%E9%93%BE%E8%A1%A8/index.html">
+<meta property="og:site_name" content="菜鸭的小角落">
+<meta property="og:description" content="用递归的方法实现打印一个链表">
+<meta property="og:locale">
+<meta property="og:image" content="https://ooo.0x0.ooo/2025/03/19/OSytUU.jpg">
+<meta property="article:published_time" content="2025-05-10T20:00:00.000Z">
+<meta property="article:modified_time" content="2025-05-23T08:39:09.279Z">
+<meta property="article:author" content="水煮鸭">
+<meta property="article:tag" content="数据结构">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ooo.0x0.ooo/2025/03/19/OSytUU.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "链表：用递归打印",
+  "url": "http://example.com/2025/05/11/%E9%93%BE%E8%A1%A8%EF%BC%9A%E7%94%A8%E9%80%92%E5%BD%92%E6%89%93%E5%8D%B0%E4%B8%80%E4%B8%AA%E9%93%BE%E8%A1%A8/",
+  "image": "https://ooo.0x0.ooo/2025/03/19/OSytUU.jpg",
+  "datePublished": "2025-05-10T20:00:00.000Z",
+  "dateModified": "2025-05-23T08:39:09.279Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "水煮鸭",
+      "url": "http://example.com/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2025/05/11/%E9%93%BE%E8%A1%A8%EF%BC%9A%E7%94%A8%E9%80%92%E5%BD%92%E6%89%93%E5%8D%B0%E4%B8%80%E4%B8%AA%E9%93%BE%E8%A1%A8/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '链表：用递归打印',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+btf.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
+
+</script><link rel="stylesheet" href="/css/center-simple.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js/pace.min.js"></script><div id="web_bg" style="background-color: #4D9460;"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://ooo.0x0.ooo/2025/03/19/OSytUU.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">2</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">1</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">1</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://img.tg/image/OS7pGK);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">菜鸭的小角落</span></a><a class="nav-page-title" href="/"><span class="site-name">链表：用递归打印</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">链表：用递归打印</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-05-10T20:00:00.000Z" title="Created 2025-05-11 04:00:00">2025-05-11</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-05-23T08:39:09.279Z" title="Updated 2025-05-23 16:39:09">2025-05-23</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p><mark>在定义函数时调用函数</mark>称递归</p>
+<p>以下代码Print函数将用到递归方法</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs C"><span class="hljs-type">void</span> <span class="hljs-title function_">Print</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> Node * p)</span> <span class="hljs-comment">//传入头指针</span><br>&#123;<br>    <span class="hljs-keyword">if</span>(p == <span class="hljs-literal">NULL</span>) <span class="hljs-keyword">return</span>;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d&quot;</span>, p-&gt;data);<br>    Print(p-&gt;next);<br>&#125;<br><br><span class="hljs-keyword">struct</span> Node* <span class="hljs-title function_">Insert</span><span class="hljs-params">(Node* head, <span class="hljs-type">int</span> data)</span> <span class="hljs-comment">//插入函数，尾插法</span><br>&#123;<br>    Node* temp = (<span class="hljs-keyword">struct</span> Node*)<span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">struct</span> Node));<br>    temp-&gt;data = data;<br>    temp-&gt;next = <span class="hljs-literal">NULL</span>;<br>    <span class="hljs-keyword">if</span>(head == <span class="hljs-literal">NULL</span>) head = temp;<br>    <span class="hljs-keyword">else</span>&#123;<br>    <span class="hljs-keyword">struct</span> Node* temp1 = head;<br>    <span class="hljs-keyword">while</span>(temp1-&gt;next != <span class="hljs-literal">NULL</span>)&#123;<br>    temp1 = temp1-&gt;next;<br>&#125;<br>    temp1-&gt;next = temp;<br>&#125;<br>    <span class="hljs-keyword">return</span> head; <span class="hljs-comment">//更改头指针；</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>运行结果如图:</p>
+<p><img src="A:\水煮鸭\MarkText\2024-07-23-19-24-44-image.png"></p>
+<p>用这种方法，若想打印反转的链表，只需改变Print函数中<mark>递归语句的顺序</mark>即可，但是此方法<mark>仅改变打印方式，而不是改变链表</mark></p>
+<p><img src="A:\水煮鸭\MarkText\2024-07-23-19-27-51-image.png"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="http://example.com">水煮鸭</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="http://example.com/2025/05/11/%E9%93%BE%E8%A1%A8%EF%BC%9A%E7%94%A8%E9%80%92%E5%BD%92%E6%89%93%E5%8D%B0%E4%B8%80%E4%B8%AA%E9%93%BE%E8%A1%A8/">http://example.com/2025/05/11/%E9%93%BE%E8%A1%A8%EF%BC%9A%E7%94%A8%E9%80%92%E5%BD%92%E6%89%93%E5%8D%B0%E4%B8%80%E4%B8%AA%E9%93%BE%E8%A1%A8/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a></div><div class="post-share"><div class="social-share" data-image="https://ooo.0x0.ooo/2025/03/19/OSytUU.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width no-desc" href="/2025/03/16/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/" title="这里是我的小小学习宇宙！"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">这里是我的小小学习宇宙！</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://ooo.0x0.ooo/2025/03/19/OSytUU.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">水煮鸭</div><div class="author-info-description">在摸爬滚打</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">2</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">1</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/xxxxx" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="https://qm.qq.com/q/926aSfDQAg" target="_blank" title="Email"><i class="fa-regular fa-envelope" style="color: #72cb8c;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/11/%E9%93%BE%E8%A1%A8%EF%BC%9A%E7%94%A8%E9%80%92%E5%BD%92%E6%89%93%E5%8D%B0%E4%B8%80%E4%B8%AA%E9%93%BE%E8%A1%A8/" title="链表：用递归打印">链表：用递归打印</a><time datetime="2025-05-10T20:00:00.000Z" title="Created 2025-05-11 04:00:00">2025-05-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/03/16/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/" title="这里是我的小小学习宇宙！">这里是我的小小学习宇宙！</a><time datetime="2025-03-16T13:30:22.754Z" title="Created 2025-03-16 21:30:22">2025-03-16</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2024 - 2025 By 水煮鸭</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.3.5</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
