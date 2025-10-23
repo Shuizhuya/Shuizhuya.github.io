@@ -1,0 +1,304 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>处理数值数据 | 菜鸭的小角落</title><meta name="author" content="水煮鸭"><meta name="copyright" content="水煮鸭"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="数值数据的处理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="处理数值数据">
+<meta property="og:url" content="https://shuizhuya.github.io/2025/08/13/%E5%A4%84%E7%90%86%E6%95%B0%E5%80%BC%E6%95%B0%E6%8D%AE/index.html">
+<meta property="og:site_name" content="菜鸭的小角落">
+<meta property="og:description" content="数值数据的处理">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ooo.0x0.ooo/2025/03/19/OSytUU.jpg">
+<meta property="article:published_time" content="2025-08-13T05:24:07.000Z">
+<meta property="article:modified_time" content="2025-10-23T13:07:08.731Z">
+<meta property="article:author" content="水煮鸭">
+<meta property="article:tag" content="机器学习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ooo.0x0.ooo/2025/03/19/OSytUU.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "处理数值数据",
+  "url": "https://shuizhuya.github.io/2025/08/13/%E5%A4%84%E7%90%86%E6%95%B0%E5%80%BC%E6%95%B0%E6%8D%AE/",
+  "image": "https://ooo.0x0.ooo/2025/03/19/OSytUU.jpg",
+  "datePublished": "2025-08-13T05:24:07.000Z",
+  "dateModified": "2025-10-23T13:07:08.731Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "水煮鸭",
+      "url": "https://shuizhuya.github.io/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://shuizhuya.github.io/2025/08/13/%E5%A4%84%E7%90%86%E6%95%B0%E5%80%BC%E6%95%B0%E6%8D%AE/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: false,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '处理数值数据',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+btf.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
+
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js/themes/blue/pace-theme-minimal.min.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js/pace.min.js"></script><div id="web_bg" style="background-color: #117334;"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://ooo.0x0.ooo/2025/03/19/OSytUU.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">17</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-color: #328f42;"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">菜鸭的小角落</span></a><a class="nav-page-title" href="/"><span class="site-name">处理数值数据</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">处理数值数据</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2025-08-13T05:24:07.000Z" title="发表于 2025-08-13 13:24:07">2025-08-13</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="处理数值数据"><a href="#处理数值数据" class="headerlink" title="处理数值数据"></a>处理数值数据</h1><p><strong>数值数据</strong>：用实数或整数表示的特征。</p>
+<p><strong>模型提取数据的方式并不是直接对数据集的行执行操作，而是会提取一个浮点值数组，称为特征向量。</strong></p>
+<ul>
+<li><strong>特征向量</strong>：<mark>构成示例的特征值数组</mark>。在训练和推理期间作为<mark>输入</mark>。</li>
+</ul>
+<p>特征向量通常<mark>不会直接使用数据集的原始值</mark>。相反的，需要将数据集的值进行处理，转化为模型能够更好地学习的表示形式。</p>
+<h2 id="特征工程"><a href="#特征工程" class="headerlink" title="特征工程"></a>特征工程</h2><p><strong>定义</strong>：<mark>将原始数据集值表示为特征处理中可训练值</mark>的最佳方法。有时也被称为特征提取或特征化。包括以下步骤：</p>
+<ol>
+<li><p>确定哪些特征可能在训练模型方面非常有用；</p>
+</li>
+<li><p>将数据集中的原始数据转换为这些高效特征的版本。</p>
+</li>
+</ol>
+<p>常见的特征工程技术有：</p>
+<ul>
+<li><p><strong>归一化</strong>：将数值转换为标准范围。</p>
+</li>
+<li><p><strong>分桶</strong>(分箱)：将数值转换为范围分桶。</p>
+</li>
+</ul>
+<h2 id="初始步骤"><a href="#初始步骤" class="headerlink" title="初始步骤"></a>初始步骤</h2><h3 id="1-将数据可视化"><a href="#1-将数据可视化" class="headerlink" title="1.将数据可视化"></a>1.将数据可视化</h3><p>图表可以帮助我们发现数据中隐藏的异常或模式，所以，在深入分析之前，<strong>需要先以图形的形式(散点图&#x2F;直方图)查看数据</strong>。建议用pandas库。</p>
+<h3 id="2-对数据进行统计评估"><a href="#2-对数据进行统计评估" class="headerlink" title="2.对数据进行统计评估"></a>2.对数据进行统计评估</h3><p><strong>通过数学方法评估潜在的特征和标签</strong>，收集以下基本统计信息：</p>
+<ul>
+<li>平均值和中位数</li>
+<li>标准差</li>
+<li>四分位数分界点的值：第 0、25、50、75 和 100 百分位。第 0 个百分位数是此列的最小值；第 100 个百分位数是此列的最大值。（第 50 百分位是指中位数。）</li>
+</ul>
+<p>比较标准差与平均值也可以看出是否有异常：</p>
+<ol>
+<li><p>均值和标准差都小，说明数据的值比较稳定，波动性较小。</p>
+</li>
+<li><p>均值大，标准差小，说明数据的值比较稳定，没有太大波动。</p>
+</li>
+<li><p>均值小，标准差大，说明数据的值比较分散，波动较大。</p>
+</li>
+<li><p>均值大，标准差大，说明数据的值分散，波动大。</p>
+</li>
+</ol>
+<h3 id="3-查找离群值"><a href="#3-查找离群值" class="headerlink" title="3.查找离群值"></a>3.查找离群值</h3><ul>
+<li><strong>离群值</strong>：是指与特征或标签中的大多数其他值相差甚远的值。</li>
+</ul>
+<p><strong>离群值常常会导致模型训练出现问题，因此需要找出它。</strong></p>
+<p>如果第 0 百分位数与第 25 百分位数之间的差异与第 75 百分位数与第 100 百分位数<mark>之间的差异明显不同</mark>，则数据集可能包含离群值。</p>
+<h2 id="标准化"><a href="#标准化" class="headerlink" title="标准化"></a>标准化</h2><p><strong>定义</strong>：将变量的实际值范围<mark>转换为标准值范围</mark>的过程，也叫<strong>归一化</strong>。</p>
+<p><strong>注意</strong>：如果在训练期间对某项特征进行归一化处理，那么在进行预测时也必须对该特征进行归一化处理。</p>
+<h3 id="常用的归一化方法"><a href="#常用的归一化方法" class="headerlink" title="常用的归一化方法"></a>常用的归一化方法</h3><h4 id="1-线性缩放"><a href="#1-线性缩放" class="headerlink" title="1.线性缩放"></a>1.线性缩放</h4><p><strong>定义</strong>：指将浮点值从其自然范围转换为标准范围。通常使用<mark>减法和除法</mark>的方式将原始值替换为介于-1到+1或0到1之间的数字。</p>
+<p><strong>数学公式</strong>(缩放到0到1范围)：<strong><mark>x’ &#x3D; (x - x<sub>min</sub>) &#x2F; (x<sub>max</sub> - x<sub>min</sub>)</mark></strong></p>
+<ul>
+<li><p>x’是缩放后的值。</p>
+</li>
+<li><p>x是原始值。</p>
+</li>
+<li><p>x<sub>min</sub>是相应特征的数据集中的最低值。</p>
+</li>
+<li><p>x<sub>max</sub>是相应特征的数据集中的最高值。</p>
+</li>
+</ul>
+<p><strong>适用条件(扁平状)</strong></p>
+<blockquote>
+<p><strong>1.</strong> 数据的下限和上限<strong>不会随时间发生太大变化</strong>。</p>
+<p><strong>2.</strong> 特征包含的<strong>离群值很少或没有</strong>，并且这些离群值并不极端。</p>
+<p><strong>3.</strong> 该特征在其范围内<strong>大致呈均匀分布</strong>。 也就是说，直方图会显示大致均匀的条形，对应于大多数值。</p>
+</blockquote>
+<h4 id="2-Z分数缩放"><a href="#2-Z分数缩放" class="headerlink" title="2.Z分数缩放"></a>2.Z分数缩放</h4><p><strong>定义</strong>：Z得分是指<mark>某个值与平均值相差的标准差数量</mark>(高为+，低为-)。</p>
+<p><strong>数学公式</strong>：<strong><mark>x’ &#x3D; (x - μ) &#x2F; σ</mark></strong></p>
+<ul>
+<li><p>x’是Z得分。</p>
+</li>
+<li><p>x是原始值。</p>
+</li>
+<li><p>μ是平均值。</p>
+</li>
+<li><p>σ是标准差。</p>
+</li>
+</ul>
+<p><strong>适用条件(钟形)</strong></p>
+<blockquote>
+<p>数据<strong>遵循正态分布</strong>或某种程度上<strong>类似于正态分布</strong>。</p>
+</blockquote>
+<h4 id="3-对数缩放"><a href="#3-对数缩放" class="headerlink" title="3.对数缩放"></a><strong>3.对数缩放</strong></h4><p><strong>定义</strong>：计算原始值的对数。理论上，对数可以是任意底数；但实际中，对数缩放<mark>通常会计算自然对数(ln)</mark>。</p>
+<p><strong>数学公式</strong>：<strong><mark>x’ &#x3D; ln<sup>x</sup></mark></strong></p>
+<ul>
+<li><p>x’是x的自然对数。</p>
+</li>
+<li><p>x是原始值。</p>
+</li>
+</ul>
+<p><strong>适用条件(重尾形)</strong></p>
+<blockquote>
+<p>数据符合<strong>幂律分布</strong>。幂律分布：</p>
+<p>①x的值较低时，y的值非常高；②随着x值得增加，y值会快速减小，即，x的值较高时，y的值会非常低。</p>
+</blockquote>
+<h4 id="4-裁剪"><a href="#4-裁剪" class="headerlink" title="4.裁剪"></a>4.裁剪</h4><p><strong>定义</strong>：一种<mark>处理离群值</mark>的方法。通常通过执行以下一种或两种操作来实现：</p>
+<ul>
+<li><p>将大于最大阈值的特征值减小到最大阈值。</p>
+</li>
+<li><p>将小于最小阈值的特征值增加到最小阈值。</p>
+</li>
+</ul>
+<p>在归一化前&#x2F;后裁剪都可以。</p>
+<h2 id="分箱"><a href="#分箱" class="headerlink" title="分箱"></a>分箱</h2><p><strong>定义</strong>：是一种特征工程，<mark>将不同的数值子范围分组到分箱或存储分区</mark>(也称为分桶)。</p>
+<p><strong>适用条件</strong></p>
+<blockquote>
+<p><strong>当以下任一条件成立时，分箱是一种优于缩放或裁剪的替代方法：</strong></p>
+<ol>
+<li><p>该特征与标签之间的整体<mark>线性关系较弱或者根本不存在</mark>。</p>
+</li>
+<li><p>当特征值<mark>被聚类</mark>时。</p>
+</li>
+</ol>
+</blockquote>
+<p>只有当某个容器中有<strong>足够多的样本</strong>时，模型才能学习该容器与标签之间的关联。</p>
+<h3 id="分位数分桶"><a href="#分位数分桶" class="headerlink" title="分位数分桶"></a>分位数分桶</h3><p><strong>定义</strong>：可创建分桶边界，<mark>使每个分桶中的样本数完全匹配或几乎相等</mark>。分位数分桶大部分情况下<strong>隐藏离群值</strong>。</p>
+<p>避免了使用普通分桶时，导致一些桶的示例数量足够进行训练，而有些桶示例数量很少，不能进行模型训练。</p>
+<h2 id="多项式转换"><a href="#多项式转换" class="headerlink" title="多项式转换"></a>多项式转换</h2><p><strong>定义：</strong> 一种特征，不在输入特征之列，而是<mark>从一个或多个输入特征组装而来，也叫合成特征</mark>。创建方法包括：</p>
+<ul>
+<li><p>对<strong>连续特征进行分桶</strong>。</p>
+</li>
+<li><p><strong>创建特征组合</strong>。</p>
+<blockquote>
+<p><strong>特征组合：</strong> 通过“组合”<mark>分类或分桶</mark>特征形成的合成特征。</p>
+</blockquote>
+</li>
+<li><p>将一个特征值与其他特征值或其本身<strong>相乘（或相除）</strong>。</p>
+</li>
+<li><p>对特征值<strong>应用超越函数</strong>。例如，如果 c 是一个输入特征，那么以下就是合成特征的示例：</p>
+<ul>
+<li><p>sin(c)</p>
+</li>
+<li><p>ln(c)</p>
+</li>
+</ul>
+</li>
+</ul>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a></div><div class="post-share"><div class="social-share" data-image="https://ooo.0x0.ooo/2025/03/19/OSytUU.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/08/31/%E6%95%B0%E6%8D%AE%E9%9B%86%E3%80%81%E6%B3%9B%E5%8C%96%E5%92%8C%E8%BF%87%E6%8B%9F%E5%90%88/" title="数据集、泛化和过拟合"><div class="cover" style="background: #328f42"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">数据集、泛化和过拟合</div></div><div class="info-2"><div class="info-item-1">数据集、泛化和过拟合的简介</div></div></div></a><a class="pagination-related" href="/2025/08/12/HTML%E5%9F%BA%E7%A1%80/" title="HTML基础"><div class="cover" style="background: #328f42"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">HTML基础</div></div><div class="info-2"><div class="info-item-1">HTML基础</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/09/27/%E5%A4%84%E7%90%86%E5%88%86%E7%B1%BB%E6%95%B0%E6%8D%AE/" title="处理分类数据"><div class="cover" style="background: #328f42"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-27</div><div class="info-item-2">处理分类数据</div></div><div class="info-2"><div class="info-item-1">分类数据的处理</div></div></div></a><a class="pagination-related" href="/2025/08/31/%E6%95%B0%E6%8D%AE%E9%9B%86%E3%80%81%E6%B3%9B%E5%8C%96%E5%92%8C%E8%BF%87%E6%8B%9F%E5%90%88/" title="数据集、泛化和过拟合"><div class="cover" style="background: #328f42"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-08-31</div><div class="info-item-2">数据集、泛化和过拟合</div></div><div class="info-2"><div class="info-item-1">数据集、泛化和过拟合的简介</div></div></div></a><a class="pagination-related" href="/2025/08/01/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" title="机器学习"><div class="cover" style="background: #328f42"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-08-01</div><div class="info-item-2">机器学习</div></div><div class="info-2"><div class="info-item-1">机器学习入门</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://ooo.0x0.ooo/2025/03/19/OSytUU.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">水煮鸭</div><div class="author-info-description">在摸爬滚打</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">17</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/Shuizhuya/Shuizhuya.github.io" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:duqiuyan2@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #3cb951;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%84%E7%90%86%E6%95%B0%E5%80%BC%E6%95%B0%E6%8D%AE"><span class="toc-number">1.</span> <span class="toc-text">处理数值数据</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B"><span class="toc-number">1.1.</span> <span class="toc-text">特征工程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E6%AD%A5%E9%AA%A4"><span class="toc-number">1.2.</span> <span class="toc-text">初始步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%B0%86%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96"><span class="toc-number">1.2.1.</span> <span class="toc-text">1.将数据可视化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%AF%B9%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E7%BB%9F%E8%AE%A1%E8%AF%84%E4%BC%B0"><span class="toc-number">1.2.2.</span> <span class="toc-text">2.对数据进行统计评估</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%9F%A5%E6%89%BE%E7%A6%BB%E7%BE%A4%E5%80%BC"><span class="toc-number">1.2.3.</span> <span class="toc-text">3.查找离群值</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%87%E5%87%86%E5%8C%96"><span class="toc-number">1.3.</span> <span class="toc-text">标准化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E7%9A%84%E5%BD%92%E4%B8%80%E5%8C%96%E6%96%B9%E6%B3%95"><span class="toc-number">1.3.1.</span> <span class="toc-text">常用的归一化方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E7%BA%BF%E6%80%A7%E7%BC%A9%E6%94%BE"><span class="toc-number">1.3.1.1.</span> <span class="toc-text">1.线性缩放</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-Z%E5%88%86%E6%95%B0%E7%BC%A9%E6%94%BE"><span class="toc-number">1.3.1.2.</span> <span class="toc-text">2.Z分数缩放</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E5%AF%B9%E6%95%B0%E7%BC%A9%E6%94%BE"><span class="toc-number">1.3.1.3.</span> <span class="toc-text">3.对数缩放</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E8%A3%81%E5%89%AA"><span class="toc-number">1.3.1.4.</span> <span class="toc-text">4.裁剪</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E7%AE%B1"><span class="toc-number">1.4.</span> <span class="toc-text">分箱</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E4%BD%8D%E6%95%B0%E5%88%86%E6%A1%B6"><span class="toc-number">1.4.1.</span> <span class="toc-text">分位数分桶</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E9%A1%B9%E5%BC%8F%E8%BD%AC%E6%8D%A2"><span class="toc-number">1.5.</span> <span class="toc-text">多项式转换</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/23/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" title="无标题">无标题</a><time datetime="2025-10-23T12:56:53.629Z" title="发表于 2025-10-23 20:56:53">2025-10-23</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/13/%E5%B5%8C%E5%85%A5/" title="嵌入">嵌入</a><time datetime="2025-10-13T15:23:00.000Z" title="发表于 2025-10-13 23:23:00">2025-10-13</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/09/27/%E5%A4%84%E7%90%86%E5%88%86%E7%B1%BB%E6%95%B0%E6%8D%AE/" title="处理分类数据">处理分类数据</a><time datetime="2025-09-27T03:52:00.000Z" title="发表于 2025-09-27 11:52:00">2025-09-27</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/09/24/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" title="神经网络">神经网络</a><time datetime="2025-09-24T11:50:00.000Z" title="发表于 2025-09-24 19:50:00">2025-09-24</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/09/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%9A%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/" title="线性回归模型">线性回归模型</a><time datetime="2025-09-21T11:55:00.000Z" title="发表于 2025-09-21 19:55:00">2025-09-21</time></div></div></div></div></div></div></main><footer id="footer" style="background-color: #328f42;"><div id="footer-wrap"><div class="copyright">&copy;2024 - 2025 By 水煮鸭</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.3.5</a></div><div class="footer_custom_text">Documenting themess and the magic.</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="true" data-text="click" data-fontsize="15px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
